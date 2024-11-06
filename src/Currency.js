@@ -3,35 +3,35 @@ import axios from "axios";
 
 const Currency = () => {
   const [exchangeRates, setExchangeRates] = useState([]);
-  const apiKey = "4bb0e8d4fb0541f5971f7d1750d32c35"; 
+  const apiKey = "219447e0afaa41d5a442123543bb117e"; 
   const apiUrl = `https://api.currencyfreaks.com/v2.0/rates/latest?apikey=${apiKey}`;
 
-  const kategoriCurrency = ["CAD", "EUR", "IDR", "JPY", "CHF", "GBP"];
-
   useEffect(() => {
-    const fetchRates = async () => {
+    const kategoriCurrency = ["CAD", "EUR", "IDR", "JPY", "CHF", "GBP"];
+    
+    const ambilDataKurs = async () => {
       try {
         const response = await axios.get(apiUrl);
-        const rates = response.data.rates;
+        const kurs = response.data.rates;
 
-        const processedRates = kategoriCurrency.map((currency) => {
-          const exchangeRate = parseFloat(rates[currency]);
+        const kursDiproses = kategoriCurrency.map((currency) => {
+          const nilaiKurs = parseFloat(kurs[currency]);
           return {
             currency,
-            exchangeRate: exchangeRate.toFixed(4),
-            weBuy: (exchangeRate * 1.05).toFixed(4),
-            weSell: (exchangeRate * 0.95).toFixed(4),
+            exchangeRate: nilaiKurs.toFixed(4),
+            weBuy: (nilaiKurs * 1.05).toFixed(4),
+            weSell: (nilaiKurs * 0.95).toFixed(4),
           };
         });
 
-        setExchangeRates(processedRates);
+        setExchangeRates(kursDiproses);
       } catch (error) {
-        console.error("Error fetching exchange rates:", error);
+        console.error("Error mengambil data kurs:", error);
       }
     };
 
-    fetchRates();
-  }, [apiUrl, kategoriCurrency]);
+    ambilDataKurs();
+  }, [apiUrl]);
 
   return (
     <div className="table-container">
