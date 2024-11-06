@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const CurrencyTable = () => {
+const Currency = () => {
   const [exchangeRates, setExchangeRates] = useState([]);
   const apiKey = "4bb0e8d4fb0541f5971f7d1750d32c35"; 
   const apiUrl = `https://api.currencyfreaks.com/v2.0/rates/latest?apikey=${apiKey}`;
 
-  const targetCurrencies = ["CAD","EUR", "IDR", "JPY", "CHF", "GBP"];
+  const kategoriCurrency = ["CAD", "EUR", "IDR", "JPY", "CHF", "GBP"];
 
   useEffect(() => {
     const fetchRates = async () => {
@@ -14,7 +14,7 @@ const CurrencyTable = () => {
         const response = await axios.get(apiUrl);
         const rates = response.data.rates;
 
-        const processedRates = targetCurrencies.map((currency) => {
+        const processedRates = kategoriCurrency.map((currency) => {
           const exchangeRate = parseFloat(rates[currency]);
           return {
             currency,
@@ -31,7 +31,7 @@ const CurrencyTable = () => {
     };
 
     fetchRates();
-  }, []);
+  }, [apiUrl, kategoriCurrency]);
 
   return (
     <div className="table-container">
@@ -60,4 +60,4 @@ const CurrencyTable = () => {
   );
 };
 
-export default CurrencyTable;
+export default Currency;

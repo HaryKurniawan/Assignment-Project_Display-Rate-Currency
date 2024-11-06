@@ -1,11 +1,11 @@
 import React from "react";
-import CurrencyTable from "./CurrencyTable";
+import Currency from "./Currency";
 import "./App.css"; 
 
 function App() {
   return (
     <div className="App">
-      <CurrencyTable />
+      <Currency />
     </div>
   );
 }
